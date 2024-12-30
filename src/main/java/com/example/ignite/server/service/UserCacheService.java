@@ -41,10 +41,11 @@ public class UserCacheService {
             // Fetch from the database if not in cache
             user = userRepository.findById(id).orElse(null);
 
-            // Put the data into the cache
-            cache.put(id, user);
+            // Put the data into the cache if found in DB
+            if (user == null) {
+                cache.put(id, user);
+            }
         }
-
         return user;
     }
 
